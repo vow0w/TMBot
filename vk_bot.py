@@ -153,7 +153,7 @@ class VkBot:
 
         # список
         if message.upper().find(self._COMMANDS[8], 0) != -1:
-            arg = message.upper().replace(self._COMMANDS[9] + " ", "")
+            arg = message.upper().replace(self._COMMANDS[8] + " ", "")
             if (arg != "" and arg != "список"):
                 return animelist(arg.lower().replace(',', '\n'))
 
