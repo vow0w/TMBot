@@ -58,11 +58,6 @@ def animelist(username):
             Str += "\n" + title
         return Str
 
-def getWeek():
-    with open("week.txt") as f:
-        week = f.read()
-    return week
-
 def translateMe(name):
     params = {
         'key': KEY,
@@ -77,7 +72,7 @@ class VkBot:
         print("\nСоздан объект бота!")
         self._USER_ID = user_id
         self._USERNAME = self._get_user_name_from_vk_id(user_id)
-        self._COMMANDS = ["ПРИВЕТ", "РАСПИСАНИЕ", "КОМАНДЫ", "ПОМОЩЬ", "ПОКА", "ДЗ", "ЗАМЕНЫ", "ACLEAR", "НЕДЕЛЯ", "СПИСОК"]
+        self._COMMANDS = ["ПРИВЕТ", "РАСПИСАНИЕ", "КОМАНДЫ", "ПОМОЩЬ", "ПОКА", "ДЗ", "ЗАМЕНЫ", "ACLEAR", "СПИСОК"]
 
     def _get_user_name_from_vk_id(self, user_id):
         request = requests.get("https://vk.com/id"+str(user_id))
@@ -156,12 +151,8 @@ class VkBot:
             dz[1] = ''; change[1] = '';
             return f"Списки были очищены!"
 
-        # неделя
-        if message.upper() == self._COMMANDS[8]:
-            return getWeek()
-
         # список
-        if message.upper().find(self._COMMANDS[9], 0) != -1:
+        if message.upper().find(self._COMMANDS[8], 0) != -1:
             arg = message.upper().replace(self._COMMANDS[9] + " ", "")
             if (arg != "" and arg != "список"):
                 return animelist(arg.lower().replace(',', '\n'))
