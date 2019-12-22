@@ -85,7 +85,7 @@ def weekday():
         return "Неделя над чертой"
 
 def animelist(username):
-    jutsu = webdriver.Chrome()
+    jutsu = webdriver.Chrome("chromedriver")
     jutsu.get("https://jut.su/user/" + username + "/anime/")
     while True:
         jutsu.execute_script("window.scrollTo(0, document.body.scrollHeight);")
