@@ -59,12 +59,12 @@ def checkweek():
     num = int(resultt)
     if (num % 2) == 0:
         if (datetime.datetime.today().weekday() == 5 or datetime.datetime.today().weekday() == 6):
-            return f"Неделя над чертой"
-        return f"Неделя под чертой"
-    else:
-        if (datetime.datetime.today().weekday() == 5 or datetime.datetime.today().weekday() == 6):
             return f"Неделя под чертой"
         return f"Неделя над чертой"
+    else:
+        if (datetime.datetime.today().weekday() == 5 or datetime.datetime.today().weekday() == 6):
+            return f"Неделя над чертой"
+        return f"Неделя под чертой"
 
 def weekday():
     sessions = requests.Session()
