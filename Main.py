@@ -7,7 +7,6 @@ from vk_bot import VkBot
 import os
 import datetime
 import time
-import change_site
 
 def write_msg(user_id, message):
     vk.method('messages.send', {'user_id': user_id, 'message': message, 'random_id': random.randint(0, 2048)})
@@ -20,15 +19,14 @@ commander = Commander()
 print("Бот запущен")
 
 #Рассылка
-while True:
-    if datetime.datetime.today().strftime('%H:%M') == "16:10":
-        i = 0
-        while i < 4:
-            users = [186003041, 288925718, 525452357, 187419279]
-            change = "Замены на завтра: \n" + change_site.start()
-            api.messages.send(user_id=users[i], message=change, random_id=get_random_id())
-            i = i + 1
-    time.sleep(55)
+if datetime.datetime.today().strftime('%H:%M') == "16:10":
+    i = 0
+    while i < 4:
+        users = [186003041, 288925718, 525452357, 187419279]
+        change = "Замены на завтра: \n" + change_site.start()
+        api.messages.send(user_id=users[i], message=change, random_id=get_random_id())
+        i = i + 1
+time.sleep(55)
 
 for event in longpoll.listen():
 
