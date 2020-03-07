@@ -8,17 +8,22 @@ import os
 def write_msg(user_id, message):
     vk.method('messages.send', {'user_id': user_id, 'message': message, 'random_id': random.randint(0, 2048)})
 
-# API-ключ созданный ранее
 token = os.environ['VK_TOKEN']
-
-# Авторизуемся как сообщество
 vk = vk_api.VkApi(token=token)
-
-# Работа с сообщениями
+api = vk.get_api()
 longpoll = VkLongPoll(vk)
-
 commander = Commander()
 print("Бот запущен")
+
+#Рассылка
+if datetime.datetime.today().strftime('%H:%M') == "16:00":
+    i = 0
+    while i < 4:
+        users = [186003041, 288925718, 525452357, 187419279]
+        change = "Замены на завтра: \n" + change_site.start()
+        api.messages.send(user_id=users[i], message=change, random_id=get_random_id())
+        i = i + 1
+
 for event in longpoll.listen():
 
     if event.attachments.items():
