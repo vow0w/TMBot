@@ -2,49 +2,6 @@ import bs4 as bs4
 from bs4 import BeautifulSoup
 import requests
 import datetime
-import json
-
-def writedz(dzinfo):
-    with open('dz.json', 'w') as file_write:
-        dz = {
-            "dz" : dzinfo,
-        }
-        json.dump(dz, file_write)
-
-def writechange(changeinfo):
-    with open('change.json', 'w') as file_write:
-        change = {
-            "change" : changeinfo
-        }
-        json.dump(change, file_write)
-
-def readdz():
-    with open('dz.json', 'r') as file_read:
-        load = str(json.load(file_read))
-        dz = load.replace('{\'dz\': \'', '')
-        dz2 = dz.replace('\'}', '')
-        return dz2
-
-def readchange():
-    with open('change.json', 'r') as file_read:
-        load = str(json.load(file_read))
-        change = load.replace('{\'change\': \'', '')
-        change2 = change.replace('\'}', '')
-        return change2
-
-def clearjsondz():
-    with open('dz.json', 'w') as deldata:
-        dz = {
-            'dz': ''
-        }
-        json.dump(dz, deldata)
-
-def clearjsonchange():
-    with open('change.json', 'w') as deldata:
-        dz = {
-            'change': ''
-        }
-        json.dump(dz, deldata)
 
 def checkweek():
     sessions = requests.Session()
@@ -59,12 +16,12 @@ def checkweek():
     num = int(resultt)
     if (num % 2) == 0:
         if (datetime.datetime.today().weekday() == 5 or datetime.datetime.today().weekday() == 6):
-            return f"Неделя под чертой"
-        return f"Неделя над чертой"
-    else:
-        if (datetime.datetime.today().weekday() == 5 or datetime.datetime.today().weekday() == 6):
             return f"Неделя над чертой"
         return f"Неделя под чертой"
+    else:
+        if (datetime.datetime.today().weekday() == 5 or datetime.datetime.today().weekday() == 6):
+            return f"Неделя под чертой"
+        return f"Неделя над чертой"
 
 def weekday():
     sessions = requests.Session()
@@ -109,7 +66,7 @@ def translateMe(name):
         'text': name,
         'lang': "en-ru"
     }
-    response = requests.get('https://translate.yandex.net/api/v1.5/tr.json/translate', params=params);
+    response = requests.get('https://translate.yandex.net/api/v1.5/tr.json/translate', params=params)
     return response.json()['text'][0]
 
 class VkBot:
@@ -117,7 +74,7 @@ class VkBot:
         print("\nСоздан объект бота!")
         self._USER_ID = user_id
         self._USERNAME = self._get_user_name_from_vk_id(user_id)
-        self._COMMANDS = ["ПРИВЕТ", "РАСПИСАНИЕ", "КОМАНДЫ", "ПОМОЩЬ", "ПОКА", "АНИМЕ", "СПИСОК", "ПРЕПОД", "ACLEARDZ", "ACLEARCHANGE", "ДЗ", "ЗАМЕНЫ"]
+        self._COMMANDS = ["ПРИВЕТ", "РАСПИСАНИЕ", "КОМАНДЫ", "ПОМОЩЬ", "ПОКА", "АНИМЕ", "СПИСОК", "ПРЕПОД"]
 
     def _get_user_name_from_vk_id(self, user_id):
         request = requests.get("https://vk.com/id"+str(user_id))
@@ -153,11 +110,11 @@ class VkBot:
 
         # Команды
         elif message.upper() == self._COMMANDS[2]:
-            return f"Весь список команд:\n1) Привет - приветствие с ботом.\n2) Расписание - показывает расписание на сегодня и на следующий день.\n3) Список - показывает всех студентов группы 18-4ТМ.\n4) Препод - показывает всех преподователей группы 18-4ТМ.\n5)Дз - посмотреть/добавить домашнее задание на завтра.\n6)Замены - посмотреть/добавить замены на завтра.\n7) Пока - прощание с ботом."
+            return f"Весь список команд:\n1) Привет - приветствие с ботом.\n2) Расписание - показывает расписание на сегодня и на следующий день.\n3) Список - показывает всех студентов группы 18-4ТМ.\n4) Препод - показывает всех преподователей группы 18-4ТМ.\n5) Пока - прощание с ботом."
 
         # Помощь
         elif message.upper() == self._COMMANDS[3]:
-            return f"Весь список команд:\n1) Привет - приветствие с ботом.\n2) Расписание - показывает расписание на сегодня и на следующий день.\n3) Список - показывает всех студентов группы 18-4ТМ.\n4) Препод - показывает всех преподователей группы 18-4ТМ.\n5)Дз - посмотреть/добавить домашнее задание на завтра.\n6)Замены - посмотреть/добавить замены на завтра.\n7) Пока - прощание с ботом."
+            return f"Весь список команд:\n1) Привет - приветствие с ботом.\n2) Расписание - показывает расписание на сегодня и на следующий день.\n3) Список - показывает всех студентов группы 18-4ТМ.\n4) Препод - показывает всех преподователей группы 18-4ТМ.\n5) Пока - прощание с ботом."
 
         # Пока
         elif message.upper() == self._COMMANDS[4]:
@@ -176,48 +133,6 @@ class VkBot:
         # препод
         if message.upper() == self._COMMANDS[7]:
             return f"Список преподователей группы 18-4ТМ:\n1) Электротехника и электроника - Смирнова Ольга Георгиевна.\n2) Метрология - Заливчей Светлана Александровна.\n3) Процессы формообразования и инструменты - Заливчей Светлана Александровна.\n4) Бережливое производство - Скакодуб Алла Валентиновна.\n5) Информатика - Сидорова Оксана Юрьевна.\n6) Техническая механика - Леонова Елена Евгеньевна.\n7) Русский язык и культура речи - Куранова Юлия Васильевна.\n8) МДК.04.01 - Кошкина Светлана Александровна.\n9) Английский язык(1 группа) - Орлова Надия Хайдеровна.\n10) Английский язык(2 группа) - Пашанина Е.С.\n11) Физическая культура - Михайлов Владимир Юрьевич.\n12) Инженерная графика(1 группа) - Вилкова Светлана Викторовна.\n13) Инженерная графика(2 группа) - Горячева Александра Павловна."
-
-        # acleardz
-        if message.upper() == self._COMMANDS[8]:
-            clearjsondz()
-            return f"Списки с дз был очищен!"
-
-        # aclearchange
-        if message.upper() == self._COMMANDS[9]:
-            clearjsonchange()
-            return f"Спиcок с заменами был очищен!"
-
-        # ДЗ
-        if message.upper().find(self._COMMANDS[10], 0) != -1:
-            arg = message.upper().replace(self._COMMANDS[10] + " ", "")
-            uname = self._USERNAME
-            if (arg != "" and arg != "ДЗ"):
-                writedz(dzinfo=arg.lower().replace(',', ' '))
-                if readdz() == "":
-                    return f"На завтра нет дз"
-                return f"ДЗ на завтра:\n" + readdz() + f"\nДобавил: " + uname
-            elif (arg == "ДЗ" or arg == ""):
-                if readdz() == "":
-                    return f"На завтра нет дз"
-                return f"ДЗ на завтра:\n" + readdz() + f"\nДобавил: " + uname
-            else:
-                return f"На завтра нет дз"
-
-        # Замены
-        if message.upper().find(self._COMMANDS[11], 0) != -1:
-            arg = message.upper().replace(self._COMMANDS[11] + " ", "")
-            uname = self._USERNAME
-            if (arg != "" and arg != "ЗАМЕНЫ"):
-                writechange(changeinfo=arg.lower().replace(',', ' '))
-                if readchange() == "":
-                    return f"На завтра нет замен"
-                return f"Замены на завтра:\n" + readchange() + f"\nДобавил: " + uname
-            elif (arg == "ЗАМЕНЫ" or arg == ""):
-                if readchange() == "":
-                    return f"На завтра нет замен"
-                return f"Замены на завтра:\n" + readchange() + f"\nДобавил: " + uname
-            else:
-                return f"На завтра нет замен"
 
         else:
             return "Я не знаю такую команду!"
