@@ -4,6 +4,7 @@ from vk_api.longpoll import VkLongPoll, VkEventType
 from commander.commander import Commander
 from vk_bot import VkBot
 import os
+import datetime
 
 def write_msg(user_id, message):
     vk.method('messages.send', {'user_id': user_id, 'message': message, 'random_id': random.randint(0, 2048)})
