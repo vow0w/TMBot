@@ -27,12 +27,12 @@ def getChange():
                 line[8] = ""
                 line[9] = "Кабинет: " + line[9] + "\n----------------------------------\n"
             else:
-                line[1] = "Пара: " + line[1] + "\n"
-                line[2] = "Кто заменяет: " + line[2] + " " + line[3] + "\n"
-                line[3] = ""
-                line[4] = "Кого заменяет: " + line[4] + " " + line[5] + "\n"
-                line[5] = ""
-                line[6] = "Кабинет: " + line[6] + "\n----------------------------------\n"
+                 line[1] = "Пара: " + line[1] + "\n"
+                 line[2] = "Кто заменяет: " + line[2] + " " + line[3] + "\n"
+                 line[3] = ""
+                 line[4] = "Кого заменяет: " + line[4] + " " + line[5] + "\n"
+                 line[5] = ""
+                 line[6] = "Кабинет: " + line[6] + "\n----------------------------------\n"
             f = open("change.json", "a")
             f.write(''.join(map(str, line)))
             f.close()
@@ -68,4 +68,5 @@ def start():
     if getChangeDate() == 1:
         return f"Замен нет на сайте!"
     else:
+        getChange()
         return withOutChange()
