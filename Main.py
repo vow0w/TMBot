@@ -9,8 +9,6 @@ import change_site
 from threading import Timer
 import os
 
-secs = delta_t.total_seconds()
-
 def write_msg(user_id, message):
     vk.method('messages.send', {'user_id': user_id, 'message': message, 'random_id': random.randint(0, 2048)})
 
@@ -25,6 +23,7 @@ print("Бот запущен")
 x = datetime.datetime.today()
 y = x.replace(day=x.day, hour=15, minute=0, second=0, microsecond=0) + datetime.timedelta(days=1)
 delta_t = y - x
+secs = delta_t.total_seconds()
 def send_message():
     i = 0
     while i < 4:
