@@ -1,5 +1,6 @@
 import random
 import vk_api
+from vk_api.utils import get_random_id
 from vk_api.longpoll import VkLongPoll, VkEventType
 from commander.commander import Commander
 from vk_bot import VkBot
@@ -20,7 +21,7 @@ print("Бот запущен")
 
 #Рассылка
 while True:
-    if datetime.datetime.today().strftime('%H:%M') == "16:08":
+    if datetime.datetime.today().strftime('%H:%M') == "16:10":
         i = 0
         while i < 4:
             users = [186003041, 288925718, 525452357, 187419279]
