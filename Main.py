@@ -4,9 +4,12 @@ from vk_api.utils import get_random_id
 from vk_api.longpoll import VkLongPoll, VkEventType
 from commander.commander import Commander
 from vk_bot import VkBot
-import os
 import datetime
-import time
+import change_site
+from threading import Timer
+import os
+
+secs = delta_t.total_seconds()
 
 def write_msg(user_id, message):
     vk.method('messages.send', {'user_id': user_id, 'message': message, 'random_id': random.randint(0, 2048)})
@@ -19,14 +22,18 @@ commander = Commander()
 print("Бот запущен")
 
 #Рассылка
-if datetime.datetime.today().strftime('%H:%M') == "16:10":
+x = datetime.datetime.today()
+y = x.replace(day=x.day, hour=15, minute=0, second=0, microsecond=0) + datetime.timedelta(days=1)
+delta_t = y - x
+def send_message():
     i = 0
     while i < 4:
         users = [186003041, 288925718, 525452357, 187419279]
         change = "Замены на завтра: \n" + change_site.start()
         api.messages.send(user_id=users[i], message=change, random_id=get_random_id())
         i = i + 1
-time.sleep(55)
+t = Timer(secs, send_message)
+t.start()
 
 for event in longpoll.listen():
 
