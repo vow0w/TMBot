@@ -55,4 +55,4 @@ try:
                 print('Текст: ', event.text)
                 print("-------------------")
 except:
-    print("А я не упал!)
+    print("А я не упал!")
