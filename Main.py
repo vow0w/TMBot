@@ -33,7 +33,7 @@ def start():
                 users = [186003041, 288925718, 525452357, 187419279]
                 change = "Замены на завтра: \n" + change_site.start()
                 api.messages.send(user_id=users[i], message=change, random_id=get_random_id())
-                print("Сообщение отправлено пользователю: " + users[i])
+                print("Сообщение отправлено пользователю: " + str(users[i]))
                 i = i + 1
 
         t = Timer(secs, send_message)
