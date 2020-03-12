@@ -12,7 +12,7 @@ import os
 def start():
     try:
         x = datetime.datetime.today()
-        y = x.replace(day=x.day, hour=15, minute=0, second=0, microsecond=0) + datetime.timedelta(days=1)
+        y = x.replace(day=x.day, hour=15, minute=0, second=0, microsecond=0) + datetime.timedelta(days=0)
         delta_t = y - x
 
         secs = delta_t.total_seconds()
